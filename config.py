@@ -1,0 +1,7 @@
+AI_NAME = "Rocky"
+
+MODEL_NAME = "qwen2.5:1.5b"
+
+TEMPERATURE = 0.5
+
+MAX_HISTORY = 10

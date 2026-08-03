@@ -15,15 +15,7 @@ def extract_name(text):
 
     for pattern in patterns:
 
-        NAME_PATTERN = re.compile(
-
-        r"nama saya (.+)",
-
-        re.IGNORECASE
-
-    )
-
-        match = NAME_PATTERN.search(text)
+        match = re.search(pattern, text.lower())
 
         if match:
 

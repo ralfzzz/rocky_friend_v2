@@ -41,18 +41,6 @@ class Database:
 
         self.conn.commit()
 
-        self.cursor.execute("""
-            CREATE TABLE IF NOT EXISTS user_profile(
-
-                key TEXT PRIMARY KEY,
-
-                value TEXT
-
-            )
-        """)
-
-        self.conn.commit()
-
     def save(self, key, value):
 
         self.cursor.execute("""

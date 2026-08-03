@@ -4,7 +4,7 @@ from memory.long_memory import LongMemory
 
 class MemoryManager:
 
-    def __init__(self, db):
+    def __init__(self):
 
         self.short = ShortMemory()
 

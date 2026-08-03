@@ -1,11 +1,10 @@
-from collections import deque
-
-
 class ShortMemory:
 
-    def __init__(self, limit=10):
+    def __init__(self):
 
-        self.messages = deque(maxlen=limit)
+        self.messages = []
+
+        self.limit = 10
 
     def add(self, role, content):
 
@@ -17,10 +16,10 @@ class ShortMemory:
 
         })
 
+        if len(self.messages) > self.limit:
+
+            self.messages.pop(0)
+
     def get(self):
 
-        return list(self.messages)
-
-    def clear(self):
-
-        self.messages.clear()
+        return self.messages

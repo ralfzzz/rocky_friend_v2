@@ -1,43 +1,35 @@
 class PromptBuilder:
 
-    def __init__(self):
+    def __init__(self, personality, profile, history):
 
-        self.cached_system = None
+        self.personality = personality
 
-        self.cached_profile = None
+        self.profile = profile
 
-    def update_system(self, text):
+        self.history = history
 
-        self.cached_system = text
+    def build(self):
 
-    def update_profile(self, text):
+        messages = []
 
-        self.cached_profile = text
+        messages.append({
 
-    def build(self, history):
+            "role": "system",
 
-        messages = [
+            "content": self.personality
 
-            {
+        })
 
-                "role":"system",
-
-                "content":self.cached_system
-
-            }
-
-        ]
-
-        if self.cached_profile:
+        if self.profile:
 
             messages.append({
 
-                "role":"system",
+                "role": "system",
 
-                "content":self.cached_profile
+                "content": "User Profile\n" + self.profile
 
             })
 
-        messages.extend(history)
+        messages.extend(self.history)
 
         return messages

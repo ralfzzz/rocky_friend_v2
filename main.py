@@ -13,18 +13,14 @@ from memory.profile_manager import ProfileManager
 from learning.profile_extractor import extract_name
 from learning.fact_extractor import extract_fact
 
-from database.database import Database
-
-db = Database() 
-
 
 def main():
 
     personality = PersonalityManager()
 
-    memory = MemoryManager(db)
+    memory = MemoryManager()
 
-    profile = ProfileManager(db)
+    profile = ProfileManager()
 
     print("=" * 50)
     print(AI_NAME)
@@ -53,7 +49,7 @@ def main():
 
         if question.lower() == "/clear":
 
-            memory.clear()
+            memory.short.messages.clear()
 
             print("Short memory dibersihkan.")
 
@@ -91,22 +87,17 @@ def main():
         # BUILD PROMPT
         # ----------------------------
 
-        builder = PromptBuilder()
+        builder = PromptBuilder(
 
-        builder.update_system(
-            personality.build_prompt()
+            personality=personality.build_prompt(),
+
+            profile=profile.build_profile(),
+
+            history=memory.history()
+
         )
 
-        profile_text = profile.build_profile()
-
-        if profile_text:
-            builder.update_profile(
-                "User Profile\n" + profile_text
-            )
-
-        messages = builder.build(
-            memory.history()
-        )
+        messages = builder.build()
 
         # ----------------------------
         # OLLAMA
@@ -128,9 +119,6 @@ def main():
 
         ai(answer)
 
-def clear(self):
-
-    self.short.clear()
 
 if __name__ == "__main__":
 
